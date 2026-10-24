@@ -26,9 +26,9 @@ function Hero() {
         initial={{ scale: 1.12 }}
         animate={{ scale: 1 }}
         transition={{ duration: 2.4, ease: 'easeOut' }}
-        className="absolute inset-0 h-full w-full object-cover"
+        className="absolute inset-y-0 right-0 h-full w-full object-cover lg:w-[78%]"
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-forest-950/70 via-forest-950/55 to-forest-950/85 lg:bg-gradient-to-r lg:from-forest-950/95 lg:via-forest-950/75 lg:to-forest-900/30" />
+      <div className="absolute inset-0 bg-gradient-to-b from-forest-950/70 via-forest-950/55 to-forest-950/85 lg:bg-gradient-to-r lg:from-forest-950 lg:from-25% lg:via-forest-950/55 lg:via-50% lg:to-forest-950/10" />
       <div className="absolute inset-0 bg-gradient-to-t from-forest-950/80 via-transparent to-transparent" />
 
       <Leaf className="absolute top-[22%] right-[12%] hidden h-16 w-16 animate-float text-leaf-300/40 lg:block" aria-hidden="true" />

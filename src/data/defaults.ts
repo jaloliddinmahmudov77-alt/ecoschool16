@@ -103,6 +103,7 @@ export const defaultSteps: Step[] = [
 
 // Maktabning haqiqiy fotosuratlari (public/images/school).
 export const schoolPhotos = {
+  building: '/images/school/maktab-binosi.webp',
   plantsWithTeacher: '/images/school/oquvchilar-gul-kochirish-1.webp',
   repotting: '/images/school/oquvchilar-gul-kochirish-2.webp',
   pottingSoil: '/images/school/tuvakka-tuproq-solish.webp',
@@ -113,7 +114,7 @@ export const schoolPhotos = {
   street2: '/images/school/kocha-tozalash-2.webp',
 }
 
-export const heroImage = schoolPhotos.flowerbed
+export const heroImage = schoolPhotos.building
 export const aboutImage = schoolPhotos.plantsWithTeacher
 
 // Galereyaning boshlang‘ich rasmlari (sanalar noma’lum bo‘lgani uchun kiritilmagan).
