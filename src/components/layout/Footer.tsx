@@ -12,11 +12,8 @@ export function Footer() {
   const sections = [
     { to: '/biz-haqimizda', label: t.nav.about },
     { to: '/7-qadam', label: t.nav.steps },
-    { to: '/loyihalar', label: t.nav.projects },
     { to: '/yutuqlar', label: t.nav.achievements },
     { to: '/galereya', label: t.nav.gallery },
-    { to: '/yangiliklar', label: t.nav.news },
-    { to: '/aloqa', label: t.nav.contact },
   ]
 
   return (
@@ -32,7 +29,7 @@ export function Footer() {
             </span>
           </Link>
           <p className="mt-5 max-w-md leading-relaxed text-white/65">
-            {settings.school_name}ning ekologik platformasi — Eco-Schools “7 qadam” metodologiyasi asosidagi faoliyatimiz, loyihalarimiz va
+            {settings.school_name}ning ekologik platformasi — Eco-Schools “7 qadam” metodologiyasi asosidagi faoliyatimiz va
             natijalarimiz.
           </p>
           <p className="mt-6 inline-flex items-center gap-2 rounded-full bg-leaf-400/15 px-4 py-2 font-display text-lg text-leaf-300">
@@ -53,6 +50,7 @@ export function Footer() {
           </ul>
         </div>
 
+        {(settings.address || settings.phone || settings.email || settings.telegram_url || settings.instagram_url || settings.facebook_url || settings.youtube_url) && (
         <div>
           <h2 className="text-sm font-bold tracking-widest text-white/50 uppercase">Aloqa</h2>
           <ul className="mt-4 space-y-3 text-white/75">
@@ -77,16 +75,10 @@ export function Footer() {
                 </a>
               </li>
             )}
-            {!settings.address && !settings.phone && !settings.email && (
-              <li>
-                <Link to="/aloqa" className="hover:text-white">
-                  Aloqa formasi orqali yozing →
-                </Link>
-              </li>
-            )}
           </ul>
           <SocialLinks settings={settings} className="mt-5" />
         </div>
+        )}
       </div>
       <div className="relative border-t border-white/10">
         <div className="container-x flex flex-col items-center justify-between gap-2 py-6 text-sm text-white/50 sm:flex-row">

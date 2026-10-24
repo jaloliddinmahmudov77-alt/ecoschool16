@@ -2,7 +2,7 @@
 // natijalar, raqamlar va yutuqlar YO‘Q: ular administrator tomonidan kiritiladi.
 // Ushbu fayl supabase/seed.sql ni yaratish uchun ham ishlatiladi
 // (scripts/generate-seed.ts), shuning uchun faqat `import type` ishlating.
-import type { GalleryItem, Project, SiteSettings, Stat, Step } from '../lib/types'
+import type { GalleryItem, SiteSettings, Stat, Step } from '../lib/types'
 
 export const defaultSettings: SiteSettings = {
   id: 1,
@@ -112,114 +112,6 @@ export const schoolPhotos = {
   street1: '/images/school/kocha-tozalash-1.webp',
   street2: '/images/school/kocha-tozalash-2.webp',
 }
-
-// Unsplash rasmlari — faqat illyustrativ; haqiqiy foto bo‘lmagan loyihalar uchun.
-const unsplash = (id: string) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1200&q=70`
-
-export const defaultProjects: Project[] = [
-  {
-    id: 'default-yashil-maktab',
-    slug: 'yashil-maktab',
-    title: 'Yashil maktab',
-    summary: 'Maktab hududida daraxt va gullar ekish, yashil maydonlarni kengaytirish.',
-    description: 'Maktab hududini ko‘kalamzorlashtirish, daraxt ko‘chatlari va gullar ekish hamda ularni parvarish qilish tashabbusi.',
-    goal: 'Maktab hududidagi yashil maydonlarni ko‘paytirish va o‘quvchilarda tabiatga mehr uyg‘otish.',
-    activities: null,
-    results: null,
-    icon: 'TreePine',
-    cover_image: schoolPhotos.flowers,
-    images: [schoolPhotos.flowerbed, schoolPhotos.flowers, schoolPhotos.plantsWithTeacher, schoolPhotos.repotting, schoolPhotos.pottingSoil],
-    status: 'planned',
-    start_date: null,
-    sort_order: 1,
-    published: true,
-  },
-  {
-    id: 'default-toza-hudud',
-    slug: 'toza-hudud',
-    title: 'Toza hudud',
-    summary: 'Maktab va uning atrofidagi hududlarni muntazam tozalash.',
-    description: 'O‘quvchilar va o‘qituvchilar ishtirokida maktab hamda atrofdagi hududlarni tozalash bo‘yicha muntazam hasharlar.',
-    goal: 'Maktab atrofini toza saqlash va chiqindilarni to‘g‘ri tashlash madaniyatini shakllantirish.',
-    activities: null,
-    results: null,
-    icon: 'Sparkles',
-    cover_image: schoolPhotos.street1,
-    images: [schoolPhotos.courtyard, schoolPhotos.street1, schoolPhotos.street2],
-    status: 'planned',
-    start_date: null,
-    sort_order: 2,
-    published: true,
-  },
-  {
-    id: 'default-plastiksiz-maktab',
-    slug: 'plastiksiz-maktab',
-    title: 'Plastiksiz maktab',
-    summary: 'Bir martalik plastik mahsulotlardan foydalanishni kamaytirish.',
-    description: 'Bir martalik plastik idishlar va paketlar o‘rniga qayta foydalaniladigan muqobillarni targ‘ib qilish, plastik chiqindilarni alohida yig‘ish.',
-    goal: 'Maktabda hosil bo‘ladigan plastik chiqindilar hajmini kamaytirish.',
-    activities: null,
-    results: null,
-    icon: 'Recycle',
-    cover_image: unsplash('1532996122724-e3c354a0b15b'),
-    images: [],
-    status: 'planned',
-    start_date: null,
-    sort_order: 3,
-    published: true,
-  },
-  {
-    id: 'default-suvni-asraylik',
-    slug: 'suvni-asraylik',
-    title: 'Suvni asraylik',
-    summary: 'Suvni tejash bo‘yicha amaliy tashabbuslar.',
-    description: 'Jo‘mraklarni nazorat qilish, oqib turgan suvni aniqlash, suvni tejash bo‘yicha targ‘ibot materiallari tayyorlash.',
-    goal: 'Maktabda suv sarfini kamaytirish va suvni tejash odatini shakllantirish.',
-    activities: null,
-    results: null,
-    icon: 'Droplets',
-    cover_image: unsplash('1497436072909-60f360e1d4b1'),
-    images: [],
-    status: 'planned',
-    start_date: null,
-    sort_order: 4,
-    published: true,
-  },
-  {
-    id: 'default-qogozni-qayta-ishlaymiz',
-    slug: 'qogozni-qayta-ishlaymiz',
-    title: 'Qog‘ozni qayta ishlaymiz',
-    summary: 'Chiqindi qog‘ozlarni yig‘ish va saralash.',
-    description: 'Sinflarda chiqindi qog‘oz uchun alohida qutilar o‘rnatish, yig‘ilgan qog‘ozni saralash va qayta ishlashga topshirish.',
-    goal: 'Qog‘oz chiqindilarini qayta ishlashga yo‘naltirish va qog‘ozni tejash.',
-    activities: null,
-    results: null,
-    icon: 'FileStack',
-    cover_image: unsplash('1611284446314-60a58ac0deb9'),
-    images: [],
-    status: 'planned',
-    start_date: null,
-    sort_order: 5,
-    published: true,
-  },
-  {
-    id: 'default-yosh-ekologlar',
-    slug: 'yosh-ekologlar',
-    title: 'Yosh ekologlar',
-    summary: 'O‘quvchilarning ekologik g‘oyalari va tashabbuslari.',
-    description: 'O‘quvchilar o‘z ekologik g‘oyalarini taklif qiladi, kichik tadqiqot va loyihalar ustida ishlaydi.',
-    goal: 'O‘quvchilarning ekologik tashabbuskorligini va tadqiqotchilik ko‘nikmalarini rivojlantirish.',
-    activities: null,
-    results: null,
-    icon: 'Sprout',
-    cover_image: schoolPhotos.repotting,
-    images: [schoolPhotos.plantsWithTeacher, schoolPhotos.repotting, schoolPhotos.pottingSoil],
-    status: 'planned',
-    start_date: null,
-    sort_order: 6,
-    published: true,
-  },
-]
 
 export const heroImage = schoolPhotos.flowerbed
 export const aboutImage = schoolPhotos.plantsWithTeacher

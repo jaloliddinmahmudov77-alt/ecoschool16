@@ -3,11 +3,8 @@ export const uz = {
     home: 'Bosh sahifa',
     about: 'Biz haqimizda',
     steps: '7 qadam',
-    projects: 'Loyihalar',
     achievements: 'Yutuqlar',
     gallery: 'Galereya',
-    news: 'Yangiliklar',
-    contact: 'Aloqa',
   },
   common: {
     readMore: 'Batafsil',

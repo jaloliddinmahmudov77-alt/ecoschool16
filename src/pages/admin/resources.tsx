@@ -1,101 +1,10 @@
-// Oddiy CRUD bo‘limlari: loyihalar, yangiliklar, galereya, yutuqlar, dalillar.
+// Oddiy CRUD bo‘limlari: galereya, yutuqlar, dalillar.
 import { ResourceManager } from '../../components/admin/ResourceManager'
 import type { FieldDef, Values } from '../../components/admin/FormFields'
-import { StatusBadge } from '../../components/ui/StatusBadge'
 import { achievementKinds, galleryCategories } from '../../data/content'
 import { defaultSteps } from '../../data/defaults'
-import { formatDate, slugify } from '../../lib/format'
-import { iconNames } from '../../lib/icons'
-import type { Achievement, Evidence, GalleryItem, NewsItem, Project } from '../../lib/types'
-
-const withSlug = (values: Values) => ({ ...values, slug: slugify(String(values.slug || values.title || '')) || `yozuv-${Date.now()}` })
-
-const today = () => new Date().toISOString().slice(0, 10)
-
-// ------------------------------------------------------------- loyihalar
-
-const projectFields: FieldDef[] = [
-  { name: 'title', label: 'Loyiha nomi', type: 'text', required: true },
-  { name: 'slug', label: 'URL manzil (slug)', type: 'text', help: 'Bo‘sh qoldirilsa nomdan avtomatik yasaladi. Masalan: yashil-maktab' },
-  { name: 'summary', label: 'Qisqa tavsif (kartochka uchun)', type: 'textarea', rows: 2, required: true },
-  { name: 'description', label: 'To‘liq tavsif', type: 'textarea', rows: 5, help: 'Paragraflarni bo‘sh qator bilan ajrating.' },
-  { name: 'goal', label: 'Maqsad', type: 'textarea', rows: 3 },
-  { name: 'activities', label: 'Amalga oshirilgan ishlar', type: 'textarea', rows: 5, help: 'Har bir ishni yangi qatordan yozing.' },
-  { name: 'results', label: 'Natijalar', type: 'textarea', rows: 4, help: 'Faqat haqiqiy, tasdiqlangan natijalar. Har birini yangi qatordan.' },
-  {
-    name: 'status',
-    label: 'Holati',
-    type: 'select',
-    required: true,
-    options: [
-      { value: 'planned', label: 'Rejalashtirilgan' },
-      { value: 'active', label: 'Faol' },
-      { value: 'completed', label: 'Bajarilgan' },
-    ],
-  },
-  { name: 'start_date', label: 'Boshlangan sana', type: 'date' },
-  { name: 'sort_order', label: 'Tartib raqami', type: 'number' },
-  { name: 'icon', label: 'Ikonka', type: 'icon' },
-  { name: 'cover_image', label: 'Muqova rasmi', type: 'image' },
-  { name: 'images', label: 'Fotosuratlar', type: 'images' },
-  { name: 'published', label: 'Saytda ko‘rsatish', type: 'checkbox' },
-]
-
-export function ProjectsAdmin() {
-  return (
-    <ResourceManager<Project & Values>
-      title="Ekologik loyihalar"
-      description="Loyihalarni qo‘shing, tahrirlang, natija va fotosuratlarni kiriting."
-      table="projects"
-      orderBy="sort_order"
-      fields={projectFields}
-      defaults={{ status: 'planned', icon: iconNames[0], images: [], published: true, sort_order: 0 }}
-      folder="projects"
-      addLabel="Yangi loyiha"
-      beforeSave={withSlug}
-      view={(p) => ({
-        title: p.title,
-        subtitle: `/loyihalar/${p.slug}${p.published ? '' : ' · yashirin'}`,
-        image: p.cover_image,
-        badge: <StatusBadge status={p.status} />,
-      })}
-    />
-  )
-}
-
-// ------------------------------------------------------------- yangiliklar
-
-const newsFields: FieldDef[] = [
-  { name: 'title', label: 'Sarlavha', type: 'text', required: true, full: true },
-  { name: 'slug', label: 'URL manzil (slug)', type: 'text', help: 'Bo‘sh qoldirilsa sarlavhadan yasaladi.' },
-  { name: 'published_at', label: 'Sana', type: 'date', required: true },
-  { name: 'excerpt', label: 'Qisqa tavsif', type: 'textarea', rows: 2 },
-  { name: 'content', label: 'Matn', type: 'textarea', rows: 10, required: true, help: 'Paragraflarni bo‘sh qator bilan ajrating.' },
-  { name: 'cover_image', label: 'Rasm', type: 'image' },
-  { name: 'published', label: 'Nashr etilgan', type: 'checkbox' },
-]
-
-export function NewsAdmin() {
-  return (
-    <ResourceManager<NewsItem & Values>
-      title="Yangiliklar"
-      description="Ekologik tadbirlar, yangi loyihalar va o‘quvchilar tashabbuslari haqida maqolalar."
-      table="news"
-      orderBy="published_at"
-      ascending={false}
-      fields={newsFields}
-      defaults={{ published: true, published_at: today() }}
-      folder="news"
-      addLabel="Yangi maqola"
-      beforeSave={withSlug}
-      view={(n) => ({
-        title: n.title,
-        subtitle: `${formatDate(n.published_at)}${n.published ? '' : ' · qoralama'}`,
-        image: n.cover_image,
-      })}
-    />
-  )
-}
+import { formatDate } from '../../lib/format'
+import type { Achievement, Evidence, GalleryItem } from '../../lib/types'
 
 // ------------------------------------------------------------- galereya
 

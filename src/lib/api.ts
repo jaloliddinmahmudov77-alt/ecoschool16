@@ -1,12 +1,9 @@
-import { defaultGallery, defaultProjects, defaultSettings, defaultStats, defaultSteps } from '../data/defaults'
+import { defaultGallery, defaultSettings, defaultStats, defaultSteps } from '../data/defaults'
 import { isSupabaseConfigured, MEDIA_BUCKET, requireSupabase, supabase } from './supabase'
 import type {
   Achievement,
-  ContactMessage,
   Evidence,
   GalleryItem,
-  NewsItem,
-  Project,
   SiteSettings,
   Stat,
   Step,
@@ -18,12 +15,9 @@ export type TableName =
   | 'stats'
   | 'steps'
   | 'step_activities'
-  | 'projects'
-  | 'news'
   | 'gallery'
   | 'achievements'
   | 'evidence'
-  | 'contact_messages'
 
 function fail(error: { message: string; code?: string } | null): never {
   const msg = error?.message ?? 'Noma’lum xatolik'
@@ -69,41 +63,6 @@ export async function getStepActivities(stepNumber?: number): Promise<StepActivi
   return data ?? []
 }
 
-export async function getProjects(): Promise<Project[]> {
-  if (!supabase) return defaultProjects
-  const { data, error } = await supabase
-    .from('projects')
-    .select('*')
-    .eq('published', true)
-    .order('sort_order')
-    .order('created_at', { ascending: false })
-  if (error) fail(error)
-  return data ?? []
-}
-
-export async function getProject(slug: string): Promise<Project | null> {
-  if (!supabase) return defaultProjects.find((p) => p.slug === slug) ?? null
-  const { data, error } = await supabase.from('projects').select('*').eq('slug', slug).eq('published', true).maybeSingle()
-  if (error) fail(error)
-  return data
-}
-
-export async function getNews(limit?: number): Promise<NewsItem[]> {
-  if (!supabase) return []
-  let query = supabase.from('news').select('*').eq('published', true).order('published_at', { ascending: false })
-  if (limit) query = query.limit(limit)
-  const { data, error } = await query
-  if (error) fail(error)
-  return data ?? []
-}
-
-export async function getNewsItem(slug: string): Promise<NewsItem | null> {
-  if (!supabase) return null
-  const { data, error } = await supabase.from('news').select('*').eq('slug', slug).eq('published', true).maybeSingle()
-  if (error) fail(error)
-  return data
-}
-
 export async function getGallery(): Promise<GalleryItem[]> {
   if (!supabase) return defaultGallery
   const { data, error } = await supabase.from('gallery').select('*').order('created_at', { ascending: false })
@@ -131,19 +90,6 @@ export async function getEvidence(): Promise<Evidence[]> {
     .order('evidence_date', { ascending: false, nullsFirst: false })
   if (error) fail(error)
   return data ?? []
-}
-
-export interface ContactInput {
-  name: string
-  email: string | null
-  phone: string | null
-  message: string
-}
-
-export async function sendContactMessage(input: ContactInput): Promise<void> {
-  const client = requireSupabase()
-  const { error } = await client.from('contact_messages').insert(input)
-  if (error) fail(error)
 }
 
 // ---------------------------------------------------------------- admin (RLS serverda tekshiradi)
@@ -180,20 +126,6 @@ export async function deleteRow(table: TableName, keyColumn: string, key: string
   const client = requireSupabase()
   const { error } = await client.from(table).delete().eq(keyColumn, key)
   if (error) fail(error)
-}
-
-export async function listMessages(): Promise<ContactMessage[]> {
-  return listRows<ContactMessage>('contact_messages', 'created_at', false)
-}
-
-export async function countUnreadMessages(): Promise<number> {
-  const client = requireSupabase()
-  const { count, error } = await client
-    .from('contact_messages')
-    .select('id', { count: 'exact', head: true })
-    .eq('is_read', false)
-  if (error) fail(error)
-  return count ?? 0
 }
 
 // ---------------------------------------------------------------- storage

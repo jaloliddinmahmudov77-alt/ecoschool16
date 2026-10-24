@@ -1,29 +1,25 @@
-import { ArrowRight, BarChart3, FileCheck2, Footprints, FolderKanban, Images, Inbox, Newspaper, Trophy } from 'lucide-react'
+import { ArrowRight, BarChart3, FileCheck2, Footprints, Images, Trophy } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Loader } from '../../components/ui/States'
 import { useAsync } from '../../hooks/useAsync'
-import { countUnreadMessages, listRows } from '../../lib/api'
+import { listRows } from '../../lib/api'
 import { useAuth } from '../../lib/auth'
 import type { Stat, Step } from '../../lib/types'
 
 async function loadOverview() {
-  const [projects, news, gallery, achievements, evidence, steps, stats, unread] = await Promise.all([
-    listRows('projects', 'created_at'),
-    listRows('news', 'created_at'),
+  const [gallery, achievements, evidence, steps, stats] = await Promise.all([
     listRows('gallery', 'created_at'),
     listRows('achievements', 'created_at'),
     listRows('evidence', 'created_at'),
     listRows<Step>('steps', 'step_number'),
     listRows<Stat>('stats', 'sort_order'),
-    countUnreadMessages(),
   ])
   return {
-    counts: { projects: projects.length, news: news.length, gallery: gallery.length, achievements: achievements.length, evidence: evidence.length },
+    counts: { gallery: gallery.length, achievements: achievements.length, evidence: evidence.length },
     stepsDone: steps.filter((s) => s.status === 'completed').length,
     stepsTotal: steps.length,
     statsFilled: stats.filter((s) => s.value !== null).length,
     statsTotal: stats.length,
-    unread,
   }
 }
 
@@ -35,12 +31,9 @@ export default function DashboardAdmin() {
   if (error || !data) return <p className="rounded-xl bg-red-50 p-4 text-red-700">{error}</p>
 
   const cards = [
-    { to: '/admin/loyihalar', label: 'Loyihalar', value: data.counts.projects, icon: FolderKanban },
-    { to: '/admin/yangiliklar', label: 'Yangiliklar', value: data.counts.news, icon: Newspaper },
     { to: '/admin/galereya', label: 'Galereya rasmlari', value: data.counts.gallery, icon: Images },
     { to: '/admin/yutuqlar', label: 'Yutuqlar', value: data.counts.achievements, icon: Trophy },
     { to: '/admin/dalillar', label: 'Dalillar', value: data.counts.evidence, icon: FileCheck2 },
-    { to: '/admin/xabarlar', label: 'Yangi xabarlar', value: data.unread, icon: Inbox },
   ]
 
   const todo = [

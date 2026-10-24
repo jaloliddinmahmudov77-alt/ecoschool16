@@ -51,39 +51,6 @@ export interface StepActivity {
   created_at?: string
 }
 
-export type ProjectStatus = 'planned' | 'active' | 'completed'
-
-export interface Project {
-  id: string
-  slug: string
-  title: string
-  summary: string
-  description: string | null
-  goal: string | null
-  activities: string | null
-  results: string | null
-  icon: string
-  cover_image: string | null
-  images: string[]
-  status: ProjectStatus
-  start_date: string | null
-  sort_order: number
-  published: boolean
-  created_at?: string
-}
-
-export interface NewsItem {
-  id: string
-  slug: string
-  title: string
-  excerpt: string
-  content: string
-  cover_image: string | null
-  published_at: string
-  published: boolean
-  created_at?: string
-}
-
 export type GalleryCategory = 'tadbirlar' | 'daraxt-ekish' | 'oldin-keyin' | 'oquvchilar' | 'natijalar'
 
 export interface GalleryItem {
@@ -120,14 +87,4 @@ export interface Evidence {
   image_url: string | null
   link_url: string | null
   created_at?: string
-}
-
-export interface ContactMessage {
-  id: string
-  name: string
-  email: string | null
-  phone: string | null
-  message: string
-  is_read: boolean
-  created_at: string
 }

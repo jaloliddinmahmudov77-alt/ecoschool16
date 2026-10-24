@@ -87,45 +87,6 @@ create table if not exists public.step_activities (
 );
 
 -- ---------------------------------------------------------------------
--- Ekologik loyihalar
--- ---------------------------------------------------------------------
-create table if not exists public.projects (
-  id uuid primary key default gen_random_uuid(),
-  slug text not null unique,
-  title text not null,
-  summary text not null default '',
-  description text,
-  goal text,
-  activities text,
-  results text,
-  icon text not null default 'Leaf',
-  cover_image text,
-  images text[] not null default '{}',
-  status text not null default 'planned' check (status in ('planned', 'active', 'completed')),
-  start_date date,
-  sort_order int not null default 0,
-  published boolean not null default true,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
-);
-
--- ---------------------------------------------------------------------
--- Yangiliklar
--- ---------------------------------------------------------------------
-create table if not exists public.news (
-  id uuid primary key default gen_random_uuid(),
-  slug text not null unique,
-  title text not null,
-  excerpt text not null default '',
-  content text not null default '',
-  cover_image text,
-  published_at date not null default current_date,
-  published boolean not null default true,
-  created_at timestamptz not null default now(),
-  updated_at timestamptz not null default now()
-);
-
--- ---------------------------------------------------------------------
 -- Galereya
 -- ---------------------------------------------------------------------
 create table if not exists public.gallery (
@@ -171,19 +132,6 @@ create table if not exists public.evidence (
 );
 
 -- ---------------------------------------------------------------------
--- Aloqa formasi xabarlari
--- ---------------------------------------------------------------------
-create table if not exists public.contact_messages (
-  id uuid primary key default gen_random_uuid(),
-  name text not null check (char_length(name) between 2 and 120),
-  email text check (email is null or char_length(email) <= 200),
-  phone text check (phone is null or char_length(phone) <= 40),
-  message text not null check (char_length(message) between 5 and 4000),
-  is_read boolean not null default false,
-  created_at timestamptz not null default now()
-);
-
--- ---------------------------------------------------------------------
 -- updated_at triggeri
 -- ---------------------------------------------------------------------
 create or replace function public.touch_updated_at()
@@ -197,7 +145,7 @@ $$;
 do $$
 declare t text;
 begin
-  foreach t in array array['site_settings', 'stats', 'steps', 'projects', 'news'] loop
+  foreach t in array array['site_settings', 'stats', 'steps'] loop
     execute format('drop trigger if exists trg_touch on public.%I', t);
     execute format(
       'create trigger trg_touch before update on public.%I for each row execute function public.touch_updated_at()', t);
@@ -213,12 +161,9 @@ alter table public.site_settings enable row level security;
 alter table public.stats enable row level security;
 alter table public.steps enable row level security;
 alter table public.step_activities enable row level security;
-alter table public.projects enable row level security;
-alter table public.news enable row level security;
 alter table public.gallery enable row level security;
 alter table public.achievements enable row level security;
 alter table public.evidence enable row level security;
-alter table public.contact_messages enable row level security;
 
 -- admins: foydalanuvchi faqat o‘zini ko‘ra oladi; yozish faqat SQL Editor orqali
 drop policy if exists "admins_self_read" on public.admins;
@@ -234,26 +179,7 @@ begin
     execute format(
       'create policy "admin_write" on public.%I for all using (public.is_admin()) with check (public.is_admin())', t);
   end loop;
-
-  -- projects va news: mehmonlar faqat nashr etilganlarini ko‘radi
-  foreach t in array array['projects', 'news'] loop
-    execute format('drop policy if exists "public_read" on public.%I', t);
-    execute format('create policy "public_read" on public.%I for select using (published or public.is_admin())', t);
-    execute format('drop policy if exists "admin_write" on public.%I', t);
-    execute format(
-      'create policy "admin_write" on public.%I for all using (public.is_admin()) with check (public.is_admin())', t);
-  end loop;
 end $$;
-
--- contact_messages: hamma yubora oladi, faqat admin o‘qiydi/o‘chiradi
-drop policy if exists "anyone_insert" on public.contact_messages;
-create policy "anyone_insert" on public.contact_messages for insert with check (is_read = false);
-drop policy if exists "admin_read" on public.contact_messages;
-create policy "admin_read" on public.contact_messages for select using (public.is_admin());
-drop policy if exists "admin_update" on public.contact_messages;
-create policy "admin_update" on public.contact_messages for update using (public.is_admin()) with check (public.is_admin());
-drop policy if exists "admin_delete" on public.contact_messages;
-create policy "admin_delete" on public.contact_messages for delete using (public.is_admin());
 
 -- ---------------------------------------------------------------------
 -- Storage: "media" bucket — hamma ko‘radi, faqat admin yuklaydi/o‘chiradi

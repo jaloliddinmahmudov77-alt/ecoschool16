@@ -1,5 +1,5 @@
 import {
-  BarChart3, ExternalLink, FileCheck2, Footprints, FolderKanban, Images, Inbox, LayoutDashboard, LogOut, Menu, Newspaper, Settings, Trophy,
+  BarChart3, ExternalLink, FileCheck2, Footprints, Images, LayoutDashboard, LogOut, Menu, Settings, Trophy,
 } from 'lucide-react'
 import { Suspense, useEffect, useState } from 'react'
 import { Link, Navigate, NavLink, Outlet, useLocation } from 'react-router-dom'
@@ -15,12 +15,9 @@ const nav = [
   { to: '/admin/sozlamalar', label: 'Sayt va aloqa', icon: Settings },
   { to: '/admin/statistika', label: 'Statistika', icon: BarChart3 },
   { to: '/admin/7-qadam', label: '7 qadam', icon: Footprints },
-  { to: '/admin/loyihalar', label: 'Loyihalar', icon: FolderKanban },
-  { to: '/admin/yangiliklar', label: 'Yangiliklar', icon: Newspaper },
   { to: '/admin/galereya', label: 'Galereya', icon: Images },
   { to: '/admin/yutuqlar', label: 'Yutuqlar', icon: Trophy },
   { to: '/admin/dalillar', label: 'Green School dalillari', icon: FileCheck2 },
-  { to: '/admin/xabarlar', label: 'Xabarlar', icon: Inbox },
 ]
 
 export function AdminLayout() {

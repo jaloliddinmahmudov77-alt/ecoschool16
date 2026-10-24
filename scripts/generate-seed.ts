@@ -1,7 +1,7 @@
 // supabase/seed.sql faylini src/data/defaults.ts asosida yaratadi.
 // Ishga tushirish: npm run seed:generate
 import { writeFileSync } from 'node:fs'
-import { defaultGallery, defaultProjects, defaultSettings, defaultStats, defaultSteps } from '../src/data/defaults.ts'
+import { defaultGallery, defaultSettings, defaultStats, defaultSteps } from '../src/data/defaults.ts'
 
 const q = (v: unknown): string => {
   if (v === null || v === undefined) return 'null'
@@ -23,10 +23,6 @@ for (const s of defaultStats) {
 lines.push('')
 for (const s of defaultSteps) {
   lines.push(`insert into public.steps (step_number, title, short_description, description, icon, status) values (${s.step_number}, ${q(s.title)}, ${q(s.short_description)}, ${q(s.description)}, ${q(s.icon)}, ${q(s.status)}) on conflict (step_number) do nothing;`)
-}
-lines.push('')
-for (const p of defaultProjects) {
-  lines.push(`insert into public.projects (slug, title, summary, description, goal, icon, cover_image, images, status, sort_order, published) values (${q(p.slug)}, ${q(p.title)}, ${q(p.summary)}, ${q(p.description)}, ${q(p.goal)}, ${q(p.icon)}, ${q(p.cover_image)}, ${q(p.images)}, ${q(p.status)}, ${p.sort_order}, true) on conflict (slug) do nothing;`)
 }
 lines.push('')
 for (const g of defaultGallery) {

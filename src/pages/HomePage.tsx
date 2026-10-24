@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
-import { ArrowRight, ChevronDown, Leaf, Mail, Trophy } from 'lucide-react'
+import { ArrowRight, ChevronDown, Leaf, Trophy } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import { NewsCard, ProjectCard, StatCard, StepCard } from '../components/cards'
+import { StatCard, StepCard } from '../components/cards'
 import { Reveal } from '../components/ui/Reveal'
 import { SectionHeading } from '../components/ui/SectionHeading'
 import { AsyncView } from '../components/ui/States'
@@ -9,7 +9,7 @@ import { values } from '../data/content'
 import { aboutImage, heroImage } from '../data/defaults'
 import { useAsync } from '../hooks/useAsync'
 import { usePageMeta } from '../hooks/usePageMeta'
-import { getNews, getProjects, getStats, getSteps } from '../lib/api'
+import { getStats, getSteps } from '../lib/api'
 import { useSettings } from '../lib/settings'
 
 function Hero() {
@@ -73,8 +73,8 @@ function Hero() {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="mt-10 flex flex-col gap-3 sm:flex-row"
         >
-          <Link to="/loyihalar" className="btn-light px-7 py-3.5 text-base">
-            Loyihalarimizni ko‘rish <ArrowRight className="h-5 w-5" aria-hidden="true" />
+          <Link to="/galereya" className="btn-light px-7 py-3.5 text-base">
+            Faoliyatimiz suratlarda <ArrowRight className="h-5 w-5" aria-hidden="true" />
           </Link>
           <Link to="/7-qadam" className="btn-ghost px-7 py-3.5 text-base">
             Bizning faoliyatimiz
@@ -176,39 +176,6 @@ function StepsPreview() {
   )
 }
 
-function ProjectsPreview() {
-  const projects = useAsync(getProjects)
-  return (
-    <section className="py-24 sm:py-32">
-      <div className="container-x">
-        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <SectionHeading
-            eyebrow="Ekologik loyihalar"
-            title="Amaldagi tashabbuslarimiz"
-            description="Har bir loyiha aniq maqsad, o‘lchanadigan natija va o‘quvchilar ishtirokiga asoslanadi."
-          />
-          <Reveal className="mb-12 shrink-0">
-            <Link to="/loyihalar" className="btn-outline">
-              Barcha loyihalar <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
-          </Reveal>
-        </div>
-        <AsyncView state={projects} empty={(d) => d.length === 0}>
-          {(data) => (
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {data.slice(0, 6).map((p, i) => (
-                <Reveal key={p.id} delay={(i % 3) * 0.08}>
-                  <ProjectCard project={p} />
-                </Reveal>
-              ))}
-            </div>
-          )}
-        </AsyncView>
-      </div>
-    </section>
-  )
-}
-
 function StatsBand() {
   const stats = useAsync(getStats)
   return (
@@ -264,55 +231,6 @@ function GreenSchoolBand() {
   )
 }
 
-function LatestNews() {
-  const news = useAsync(() => getNews(3))
-  if (!news.loading && !news.error && (news.data?.length ?? 0) === 0) return null
-  return (
-    <section className="bg-forest-50/60 py-24 sm:py-32">
-      <div className="container-x">
-        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <SectionHeading eyebrow="Yangiliklar" title="So‘nggi voqealar" />
-          <Reveal className="mb-12 shrink-0">
-            <Link to="/yangiliklar" className="btn-outline">
-              Barcha yangiliklar <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
-          </Reveal>
-        </div>
-        <AsyncView state={news}>
-          {(data) => (
-            <div className="grid gap-6 md:grid-cols-3">
-              {data.map((n, i) => (
-                <Reveal key={n.id} delay={i * 0.08}>
-                  <NewsCard item={n} />
-                </Reveal>
-              ))}
-            </div>
-          )}
-        </AsyncView>
-      </div>
-    </section>
-  )
-}
-
-function ContactCta() {
-  return (
-    <section className="py-24">
-      <div className="container-x">
-        <Reveal className="flex flex-col items-center rounded-[2.5rem] bg-forest-950 px-6 py-16 text-center text-white sm:px-16">
-          <Leaf className="h-10 w-10 text-leaf-300" aria-hidden="true" />
-          <h2 className="mt-5 max-w-2xl font-display text-3xl font-bold sm:text-4xl">Ekologik tashabbusga qo‘shilmoqchimisiz?</h2>
-          <p className="mt-4 max-w-xl text-white/70">
-            Ota-onalar, hamkor tashkilotlar va faol fuqarolar — g‘oya va takliflaringizni kutamiz.
-          </p>
-          <Link to="/aloqa" className="btn-light mt-8 px-8 py-4 text-base">
-            <Mail className="h-5 w-5" aria-hidden="true" /> Biz bilan bog‘laning
-          </Link>
-        </Reveal>
-      </div>
-    </section>
-  )
-}
-
 export default function HomePage() {
   usePageMeta('')
   return (
@@ -320,11 +238,8 @@ export default function HomePage() {
       <Hero />
       <AboutPreview />
       <StepsPreview />
-      <ProjectsPreview />
       <StatsBand />
       <GreenSchoolBand />
-      <LatestNews />
-      <ContactCta />
     </>
   )
 }

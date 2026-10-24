@@ -15,11 +15,8 @@ export function Header() {
     { to: '/', label: t.nav.home },
     { to: '/biz-haqimizda', label: t.nav.about },
     { to: '/7-qadam', label: t.nav.steps },
-    { to: '/loyihalar', label: t.nav.projects },
     { to: '/yutuqlar', label: t.nav.achievements },
     { to: '/galereya', label: t.nav.gallery },
-    { to: '/yangiliklar', label: t.nav.news },
-    { to: '/aloqa', label: t.nav.contact },
   ]
 
   useEffect(() => {
