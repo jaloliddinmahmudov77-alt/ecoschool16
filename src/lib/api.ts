@@ -1,4 +1,4 @@
-import { defaultProjects, defaultSettings, defaultStats, defaultSteps } from '../data/defaults'
+import { defaultGallery, defaultProjects, defaultSettings, defaultStats, defaultSteps } from '../data/defaults'
 import { isSupabaseConfigured, MEDIA_BUCKET, requireSupabase, supabase } from './supabase'
 import type {
   Achievement,
@@ -105,7 +105,7 @@ export async function getNewsItem(slug: string): Promise<NewsItem | null> {
 }
 
 export async function getGallery(): Promise<GalleryItem[]> {
-  if (!supabase) return []
+  if (!supabase) return defaultGallery
   const { data, error } = await supabase.from('gallery').select('*').order('created_at', { ascending: false })
   if (error) fail(error)
   return data ?? []

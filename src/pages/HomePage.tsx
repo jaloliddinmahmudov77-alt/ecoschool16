@@ -104,7 +104,7 @@ function AboutPreview() {
             alt=""
             loading="lazy"
             decoding="async"
-            className="relative aspect-[4/5] w-full rounded-[2rem] object-cover shadow-2xl sm:aspect-[5/4] lg:aspect-[4/5]"
+            className="relative aspect-[4/3] w-full rounded-[2rem] object-cover object-[60%_center] shadow-2xl"
           />
           <div className="absolute -right-2 -bottom-6 max-w-[15rem] rounded-3xl bg-white p-5 shadow-xl sm:-right-6">
             <p className="font-display text-2xl font-bold text-forest-800">7 qadam</p>

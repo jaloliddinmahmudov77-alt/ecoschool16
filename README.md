@@ -68,7 +68,7 @@ Yuklangan rasmlar brauzerda avtomatik WebP formatiga siqiladi (maks. 1920 px). Y
 ## 5. Kontent bo‘yicha qoidalar
 
 - Raqamlar, yutuqlar va natijalar faqat hujjat bilan tasdiqlangan holda kiritilsin. Saytda uydirma qiymat yo‘q — bo‘sh maydonlar halol “kiritilmagan” deb ko‘rsatiladi.
-- Loyiha kartochkalaridagi standart rasmlar Unsplash’dan olingan **illyustrativ** rasmlar bo‘lib, “Illyustrativ rasm” deb belgilangan. Ularni maktabning haqiqiy fotosuratlari bilan almashtiring.
+- Maktabning haqiqiy fotosuratlari `public/images/school/` da (hero, “Biz haqimizda”, “Yashil maktab”, “Toza hudud”, “Yosh ekologlar” loyihalari va galereya). Qolgan 3 loyiha muqovasi Unsplash’dan olingan **illyustrativ** rasm va “Illyustrativ rasm” deb belgilangan — haqiqiy foto bilan almashtiring.
 - Matnlarda paragraflarni bo‘sh qator bilan, ro‘yxat elementlarini yangi qator bilan ajrating.
 
 ## 6. Production build va joylashtirish

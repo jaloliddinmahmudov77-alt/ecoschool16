@@ -2,7 +2,7 @@
 // natijalar, raqamlar va yutuqlar YO‘Q: ular administrator tomonidan kiritiladi.
 // Ushbu fayl supabase/seed.sql ni yaratish uchun ham ishlatiladi
 // (scripts/generate-seed.ts), shuning uchun faqat `import type` ishlating.
-import type { Project, SiteSettings, Stat, Step } from '../lib/types'
+import type { GalleryItem, Project, SiteSettings, Stat, Step } from '../lib/types'
 
 export const defaultSettings: SiteSettings = {
   id: 1,
@@ -101,7 +101,18 @@ export const defaultSteps: Step[] = [
   },
 ]
 
-// Loyiha muqovalari — faqat illyustrativ rasmlar; administrator haqiqiy rasmlar bilan almashtiradi.
+// Maktabning haqiqiy fotosuratlari (public/images/school).
+export const schoolPhotos = {
+  plantsWithTeacher: '/images/school/oquvchilar-gul-kochirish-1.webp',
+  repotting: '/images/school/oquvchilar-gul-kochirish-2.webp',
+  flowerbed: '/images/school/gulzor-tayyorlash.webp',
+  courtyard: '/images/school/hovli-tozalash.webp',
+  flowers: '/images/school/xrizantemalar.webp',
+  street1: '/images/school/kocha-tozalash-1.webp',
+  street2: '/images/school/kocha-tozalash-2.webp',
+}
+
+// Unsplash rasmlari — faqat illyustrativ; haqiqiy foto bo‘lmagan loyihalar uchun.
 const unsplash = (id: string) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=1200&q=70`
 
 export const defaultProjects: Project[] = [
@@ -115,8 +126,8 @@ export const defaultProjects: Project[] = [
     activities: null,
     results: null,
     icon: 'TreePine',
-    cover_image: unsplash('1523348837708-15d4a09cfac2'),
-    images: [],
+    cover_image: schoolPhotos.flowers,
+    images: [schoolPhotos.flowerbed, schoolPhotos.flowers, schoolPhotos.plantsWithTeacher, schoolPhotos.repotting],
     status: 'planned',
     start_date: null,
     sort_order: 1,
@@ -132,8 +143,8 @@ export const defaultProjects: Project[] = [
     activities: null,
     results: null,
     icon: 'Sparkles',
-    cover_image: unsplash('1416879595882-3373a0480b5b'),
-    images: [],
+    cover_image: schoolPhotos.street1,
+    images: [schoolPhotos.courtyard, schoolPhotos.street1, schoolPhotos.street2],
     status: 'planned',
     start_date: null,
     sort_order: 2,
@@ -200,8 +211,8 @@ export const defaultProjects: Project[] = [
     activities: null,
     results: null,
     icon: 'Sprout',
-    cover_image: unsplash('1501004318641-b39e6451bec6'),
-    images: [],
+    cover_image: schoolPhotos.repotting,
+    images: [schoolPhotos.plantsWithTeacher, schoolPhotos.repotting],
     status: 'planned',
     start_date: null,
     sort_order: 6,
@@ -209,5 +220,16 @@ export const defaultProjects: Project[] = [
   },
 ]
 
-export const heroImage = unsplash('1441974231531-c6227db76b6e').replace('w=1200', 'w=2000')
-export const aboutImage = unsplash('1542601906990-b4d3fb778b09')
+export const heroImage = schoolPhotos.flowerbed
+export const aboutImage = schoolPhotos.plantsWithTeacher
+
+// Galereyaning boshlang‘ich rasmlari (sanalar noma’lum bo‘lgani uchun kiritilmagan).
+export const defaultGallery: GalleryItem[] = [
+  { id: 'g1', title: 'O‘quvchilar ustoz bilan xona o‘simliklarini ko‘chirib o‘tqazmoqda', category: 'oquvchilar', image_url: schoolPhotos.plantsWithTeacher, before_image_url: null, taken_at: null },
+  { id: 'g2', title: 'Gullarni yangi tuvaklarga o‘tqazish', category: 'oquvchilar', image_url: schoolPhotos.repotting, before_image_url: null, taken_at: null },
+  { id: 'g3', title: '5-B sinf o‘quvchilari gulzorni ekishga tayyorlamoqda', category: 'daraxt-ekish', image_url: schoolPhotos.flowerbed, before_image_url: null, taken_at: null },
+  { id: 'g4', title: 'Ekish uchun keltirilgan xrizantemalar', category: 'daraxt-ekish', image_url: schoolPhotos.flowers, before_image_url: null, taken_at: null },
+  { id: 'g5', title: 'Maktab hovlisini tozalash hashari', category: 'tadbirlar', image_url: schoolPhotos.courtyard, before_image_url: null, taken_at: null },
+  { id: 'g6', title: 'Maktab atrofidagi ko‘chani chiqindilardan tozalash', category: 'tadbirlar', image_url: schoolPhotos.street1, before_image_url: null, taken_at: null },
+  { id: 'g7', title: 'O‘quvchilar maktab oldidagi hududni tozalamoqda', category: 'tadbirlar', image_url: schoolPhotos.street2, before_image_url: null, taken_at: null },
+]
