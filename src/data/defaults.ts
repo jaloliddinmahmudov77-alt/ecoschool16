@@ -105,6 +105,7 @@ export const defaultSteps: Step[] = [
 export const schoolPhotos = {
   plantsWithTeacher: '/images/school/oquvchilar-gul-kochirish-1.webp',
   repotting: '/images/school/oquvchilar-gul-kochirish-2.webp',
+  pottingSoil: '/images/school/tuvakka-tuproq-solish.webp',
   flowerbed: '/images/school/gulzor-tayyorlash.webp',
   courtyard: '/images/school/hovli-tozalash.webp',
   flowers: '/images/school/xrizantemalar.webp',
@@ -127,7 +128,7 @@ export const defaultProjects: Project[] = [
     results: null,
     icon: 'TreePine',
     cover_image: schoolPhotos.flowers,
-    images: [schoolPhotos.flowerbed, schoolPhotos.flowers, schoolPhotos.plantsWithTeacher, schoolPhotos.repotting],
+    images: [schoolPhotos.flowerbed, schoolPhotos.flowers, schoolPhotos.plantsWithTeacher, schoolPhotos.repotting, schoolPhotos.pottingSoil],
     status: 'planned',
     start_date: null,
     sort_order: 1,
@@ -212,7 +213,7 @@ export const defaultProjects: Project[] = [
     results: null,
     icon: 'Sprout',
     cover_image: schoolPhotos.repotting,
-    images: [schoolPhotos.plantsWithTeacher, schoolPhotos.repotting],
+    images: [schoolPhotos.plantsWithTeacher, schoolPhotos.repotting, schoolPhotos.pottingSoil],
     status: 'planned',
     start_date: null,
     sort_order: 6,
@@ -227,6 +228,7 @@ export const aboutImage = schoolPhotos.plantsWithTeacher
 export const defaultGallery: GalleryItem[] = [
   { id: 'g1', title: 'O‘quvchilar ustoz bilan xona o‘simliklarini ko‘chirib o‘tqazmoqda', category: 'oquvchilar', image_url: schoolPhotos.plantsWithTeacher, before_image_url: null, taken_at: null },
   { id: 'g2', title: 'Gullarni yangi tuvaklarga o‘tqazish', category: 'oquvchilar', image_url: schoolPhotos.repotting, before_image_url: null, taken_at: null },
+  { id: 'g8', title: 'O‘quvchilar ustoz bilan tuvaklarga tuproq solib, ko‘chat o‘tqazmoqda', category: 'oquvchilar', image_url: schoolPhotos.pottingSoil, before_image_url: null, taken_at: null },
   { id: 'g3', title: '5-B sinf o‘quvchilari gulzorni ekishga tayyorlamoqda', category: 'daraxt-ekish', image_url: schoolPhotos.flowerbed, before_image_url: null, taken_at: null },
   { id: 'g4', title: 'Ekish uchun keltirilgan xrizantemalar', category: 'daraxt-ekish', image_url: schoolPhotos.flowers, before_image_url: null, taken_at: null },
   { id: 'g5', title: 'Maktab hovlisini tozalash hashari', category: 'tadbirlar', image_url: schoolPhotos.courtyard, before_image_url: null, taken_at: null },
