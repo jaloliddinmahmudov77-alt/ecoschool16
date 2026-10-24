@@ -1,0 +1,96 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Fraunces', Georgia, serif;
+
+  --color-forest-50: #f0f7f1;
+  --color-forest-100: #dcefe0;
+  --color-forest-200: #b9dec3;
+  --color-forest-300: #8bc59d;
+  --color-forest-400: #58a672;
+  --color-forest-500: #358953;
+  --color-forest-600: #256d41;
+  --color-forest-700: #1d5735;
+  --color-forest-800: #17462c;
+  --color-forest-900: #123823;
+  --color-forest-950: #0a2215;
+
+  --color-leaf-300: #bef264;
+  --color-leaf-400: #a3e635;
+
+  --color-sky-eco-100: #e0f2fe;
+  --color-sky-eco-300: #93c5fd;
+  --color-sky-eco-500: #38bdf8;
+  --color-sky-eco-700: #0369a1;
+
+  --color-cream: #fafaf5;
+
+  --animate-float: float 7s ease-in-out infinite;
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-14px) rotate(4deg); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-cream font-sans text-forest-950 antialiased;
+  }
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  ::selection {
+    @apply bg-forest-200 text-forest-950;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-forest-500;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+}
+
+@utility container-x {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-60;
+}
+@utility btn-primary {
+  @apply btn bg-forest-700 text-white shadow-lg shadow-forest-900/20 hover:-translate-y-0.5 hover:bg-forest-800 hover:shadow-xl;
+}
+@utility btn-light {
+  @apply btn bg-white text-forest-900 shadow-lg shadow-black/10 hover:-translate-y-0.5 hover:bg-forest-50;
+}
+@utility btn-ghost {
+  @apply btn border border-white/40 bg-white/10 text-white backdrop-blur hover:bg-white/20;
+}
+@utility btn-outline {
+  @apply btn border border-forest-200 bg-white text-forest-800 hover:border-forest-400 hover:bg-forest-50;
+}
+@utility btn-danger {
+  @apply btn bg-red-600 text-white hover:bg-red-700;
+}
+@utility card {
+  @apply rounded-3xl border border-forest-100 bg-white shadow-sm shadow-forest-900/5;
+}
+@utility input {
+  @apply w-full rounded-xl border border-forest-200 bg-white px-4 py-2.5 text-sm text-forest-950 transition placeholder:text-forest-400 focus:border-forest-500 focus:ring-4 focus:ring-forest-100 focus:outline-none;
+}
+@utility label {
+  @apply mb-1.5 block text-sm font-semibold text-forest-900;
+}
+@utility eyebrow {
+  @apply inline-flex items-center gap-2 rounded-full bg-forest-100 px-3 py-1 text-xs font-bold tracking-widest text-forest-700 uppercase;
+}
+@utility prose-eco {
+  & p {
+    @apply mb-4 leading-relaxed text-forest-900/80;
+  }
+}
